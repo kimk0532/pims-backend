@@ -1,0 +1,6 @@
+rootProject.name = 'pims'
+include 'core'
+include 'common'
+include 'pms'
+include 'notification'
+include 'batch'

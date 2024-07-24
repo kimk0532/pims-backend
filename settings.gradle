@@ -1,4 +1,4 @@
-rootProject.name = 'pims'
+rootProject.name = 'pims-backend'
 include 'pims-core'
 include 'pims-common'
 include 'pims-pms'

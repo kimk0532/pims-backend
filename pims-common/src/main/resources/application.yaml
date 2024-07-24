@@ -4,3 +4,18 @@ server:
 spring:
   application:
     name: pims-common
+  mvc:
+    dispatch-trace-request: true
+  #  datasource:
+  #    driver-class-name: org.postgresql.Driver
+  #    url: jdbc:postgresql://10.250.109.121:15432/PIMS_PMS_DEV
+  #    username: postgres
+  #    password: Skcc!@3456
+  #    hikari:
+  #      maximum-pool-size: 2
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      ddl-auto: create

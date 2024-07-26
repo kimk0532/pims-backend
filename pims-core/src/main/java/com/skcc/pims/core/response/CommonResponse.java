@@ -1,4 +1,4 @@
-package com.skcc.pims.core.util;
+package com.skcc.pims.core.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

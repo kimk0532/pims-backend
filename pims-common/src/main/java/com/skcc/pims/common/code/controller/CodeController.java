@@ -4,8 +4,8 @@ import com.skcc.pims.common.code.dto.request.CodeRequestDto;
 import com.skcc.pims.common.code.dto.response.CodeGroupResponseDto;
 import com.skcc.pims.common.code.dto.response.CodeResponseDto;
 import com.skcc.pims.common.code.service.CodeService;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.Parameters;
+import com.skcc.pims.core.exception.GeneralException;
+import com.skcc.pims.core.exception.CommonResponseStatus;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -35,14 +35,25 @@ public class CodeController {
         return codeService.getAllCodeGroups();
     }
 
-    @Parameters({
-        @Parameter(name = "codeGroupId", description = "코드 그룹 아이디", required = true)
-    })
+//    @Parameters({
+//        @Parameter(name = "codeGroupId", description = "코드 그룹 아이디", required = true)
+//    })
     @GetMapping("/groups/{codeGroupId}/details")
     public ResponseEntity<CodeResponseDto> getCodeDetails(@PathVariable String codeGroupId, @ModelAttribute CodeRequestDto request) {
         String codeGroupId2 = request.getCodeGroupId();
         log.info(codeGroupId2);
         return ResponseEntity.ok(codeService.getCodeDetails(codeGroupId));
+    }
+
+    @GetMapping("/string-test")
+    public ResponseEntity<String> stringTest() {
+        return ResponseEntity.ok("test");
+    }
+
+    @GetMapping("/invoke-error")
+    public CodeResponseDto invokeError() {
+        if(true) throw new GeneralException(CommonResponseStatus.UNEXPECTED_ERROR);
+        return null;
     }
 
 }

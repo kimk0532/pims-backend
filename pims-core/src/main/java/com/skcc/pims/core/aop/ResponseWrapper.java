@@ -1,5 +1,7 @@
-package com.skcc.pims.core.util;
+package com.skcc.pims.core.aop;
 
+import com.skcc.pims.core.exception.CommonResponseStatus;
+import com.skcc.pims.core.response.CommonResponse;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpStatus;
@@ -22,7 +24,19 @@ public class ResponseWrapper implements ResponseBodyAdvice<Object> {
     }
 
     @Override
-    public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
+    public Object beforeBodyWrite(Object body,
+                                  MethodParameter returnType,
+                                  MediaType selectedContentType,
+                                  Class selectedConverterType,
+                                  ServerHttpRequest request,
+                                  ServerHttpResponse response) {
+
+        if(body instanceof CommonResponseStatus){
+            return CommonResponse.builder()
+                    .code(((CommonResponseStatus) body).getCode())
+                    .message(((CommonResponseStatus) body).getMessage())
+                    .build();
+        };
 
         HttpServletResponse servletResponse =
                 ((ServletServerHttpResponse) response).getServletResponse();

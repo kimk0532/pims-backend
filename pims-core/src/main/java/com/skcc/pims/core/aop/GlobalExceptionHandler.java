@@ -12,7 +12,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(GeneralException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public CommonResponseStatus handleApiException(GeneralException e) {
+    public CommonResponseStatus handleGeneralException(GeneralException e) {
         e.printStackTrace();
         return e.getCommonResponseStatus();
     }
@@ -21,6 +21,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public CommonResponseStatus handleException(Exception e) {
         e.printStackTrace();
+        e.
         return CommonResponseStatus.UNEXPECTED_ERROR;
     }
 

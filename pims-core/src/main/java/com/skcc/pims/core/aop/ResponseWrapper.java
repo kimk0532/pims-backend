@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.http.server.ServletServerHttpResponse;
+import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
@@ -31,13 +32,6 @@ public class ResponseWrapper implements ResponseBodyAdvice<Object> {
                                   ServerHttpRequest request,
                                   ServerHttpResponse response) {
 
-        if(body instanceof CommonResponseStatus){
-            return CommonResponse.builder()
-                    .code(((CommonResponseStatus) body).getCode())
-                    .message(((CommonResponseStatus) body).getMessage())
-                    .build();
-        };
-
         HttpServletResponse servletResponse =
                 ((ServletServerHttpResponse) response).getServletResponse();
         int status = servletResponse.getStatus();
@@ -53,6 +47,13 @@ public class ResponseWrapper implements ResponseBodyAdvice<Object> {
                     .code(200)
                     .build();
         }
+
+        if(body instanceof CommonResponseStatus){
+            return CommonResponse.builder()
+                    .code(((CommonResponseStatus) body).getCode())
+                    .message(((CommonResponseStatus) body).getMessage())
+                    .build();
+        };
 
         return body;
     }

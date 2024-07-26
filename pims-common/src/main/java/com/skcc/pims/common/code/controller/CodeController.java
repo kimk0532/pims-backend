@@ -15,9 +15,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
+@Tag(name = "Code", description = "코드 관리")
 @RestController
 @RequestMapping("/code")
-@Tag(name = "Code", description = "코드 관리")
 @RequiredArgsConstructor
 public class CodeController {
 
@@ -45,15 +45,9 @@ public class CodeController {
         return ResponseEntity.ok(codeService.getCodeDetails(codeGroupId));
     }
 
-    @GetMapping("/string-test")
-    public ResponseEntity<String> stringTest() {
-        return ResponseEntity.ok("test");
-    }
-
     @GetMapping("/invoke-error")
     public CodeResponseDto invokeError() {
-        if(true) throw new GeneralException(CommonResponseStatus.UNEXPECTED_ERROR);
-        return null;
+        throw new GeneralException(CommonResponseStatus.UNEXPECTED_ERROR);
     }
 
 }
